@@ -77,12 +77,3 @@ with tab1:
                         st.error(f"Błąd zapisu: {e}")
                 else:
                     st.error("Nazwa produktu jest wymagana!")
-
----
-### Dlaczego wcześniej mogło nie działać? (Lista kontrolna)
-
-1.  **Pusta tabela kategorii**: Jeśli nie dodałeś najpierw kategorii w Supabase, `selectbox` nie miał co wyświetlić. W tym kodzie dodałem `st.rerun()`, który wymusza odświeżenie listy zaraz po dodaniu nowej kategorii.
-2.  **Uprawnienia RLS (Row Level Security)**: W panelu Supabase sprawdź, czy Twoje tabele mają wyłączone RLS, lub czy dodałeś politykę pozwalającą na `INSERT` i `SELECT`. Jeśli RLS jest włączone i nie ma polityk, Python nie "zobaczy" danych.
-3.  **Typy danych**: Supabase jest rygorystyczny. Jeśli w bazie masz `int8`, a Python wyśle `string`, wyrzuci błąd. W powyższym kodzie wymusiłem `int()` i `float()`.
-
-**Czy po dodaniu pierwszej kategorii w zakładce "Dodaj Kategorię" lista w "Dodaj Produkt" teraz się pojawia?**
